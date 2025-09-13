@@ -106,10 +106,19 @@ class Homescreen extends StatelessWidget {
             /// Top Section (User info + Settings)
             Row(
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundImage: NetworkImage(
-                    "https://learningbucket250825.s3.ap-southeast-2.amazonaws.com/IMG_20240125_000057%5B1%5D.jpg",
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ProfilePage();
+                      },
+                    ));
+                  },
+                  child: CircleAvatar(
+                    radius: 22,
+                    backgroundImage: NetworkImage(
+                      "https://learningbucket250825.s3.ap-southeast-2.amazonaws.com/IMG_20240125_000057%5B1%5D.jpg",
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -131,7 +140,13 @@ class Homescreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ProfilePage();
+                      },
+                    ));
+                  },
                   icon: const Icon(Icons.settings, color: Colors.black54),
                 )
               ],

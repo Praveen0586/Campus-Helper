@@ -10,6 +10,7 @@ import 'package:hackathon_project/screens/profilescreen.dart';
 import 'package:hackathon_project/screens/raisequestionscreen.dart';
 import 'package:hackathon_project/screens/reportscreen.dart';
 import 'package:hackathon_project/screens/shedules.dart';
+import 'package:hackathon_project/screens/studyplanner.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});
@@ -223,10 +224,17 @@ class Homescreen extends StatelessWidget {
                       MaterialPageRoute(builder: (_) => FlashcardsScreen()),
                     );
                   }),
-                  buildActionCard(Icons.chat, "AI - Flash", Colors.orange, () {
+                  buildActionCard(Icons.chat, "AI - Flash", Colors.blue, () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (_) => PDFUpload()),
+                    );
+                  }),
+                  buildActionCard(Icons.chat, "AI - Study Planner", Colors.blue,
+                      () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => StudyPlannerScreen()),
                     );
                   }),
                 ],

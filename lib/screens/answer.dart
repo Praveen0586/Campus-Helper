@@ -14,7 +14,7 @@ class AIAssistantScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('AI Assistant'),
         centerTitle: true,
-        leading: Icon(Icons.arrow_back),
+        // leading: Icon(Icons.arrow_back),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -32,54 +32,56 @@ class AIAssistantScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                  children: [
-                    TextSpan(text: responseText),
-                  ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                    children: [
+                      TextSpan(text: responseText),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-
-            // Action buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButtonWithLabel(
-                    icon: Icons.thumb_up_alt_outlined, label: '12'),
-                SizedBox(width: 10),
-                IconButtonWithLabel(
-                    icon: Icons.thumb_down_alt_outlined, label: '2'),
-                SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: responseText));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Copied to clipboard")),
-                    );
-                  },
-                  icon: Icon(Icons.copy),
-                ),
-                SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {
-                    // Implement share functionality
-                  },
-                  icon: Icon(Icons.share),
-                ),
-              ],
-            ),
-          ],
+              SizedBox(height: 20),
+          
+              // Action buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButtonWithLabel(
+                      icon: Icons.thumb_up_alt_outlined, label: '12'),
+                  SizedBox(width: 10),
+                  IconButtonWithLabel(
+                      icon: Icons.thumb_down_alt_outlined, label: '2'),
+                  SizedBox(width: 10),
+                  IconButton(
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: responseText));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Copied to clipboard")),
+                      );
+                    },
+                    icon: Icon(Icons.copy),
+                  ),
+                  SizedBox(width: 10),
+                  IconButton(
+                    onPressed: () {
+                      // Implement share functionality
+                    },
+                    icon: Icon(Icons.share),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

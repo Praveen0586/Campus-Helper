@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/api/api_links.dart';
 import 'package:http/http.dart' as http;
 
 class StudyPlannerScreen extends StatefulWidget {
@@ -17,9 +18,9 @@ class _StudyPlannerScreenState extends State<StudyPlannerScreen> {
 
   Future<void> _getPlan() async {
     setState(() => _loading = true);
-
+// https://hackathon-server-18ab.onrender.com
     final url = Uri.parse(
-        "https://hackathon-server-18ab.onrender.com/chatbot/api/studyplan"); // change when hosted
+       APIinks.AI_StudyPlanner); // change when hosted
     try {
       final response = await http.post(
         url,
@@ -67,7 +68,7 @@ class _StudyPlannerScreenState extends State<StudyPlannerScreen> {
     // TODO: implement initState
     _subjectsController.text = "Maths, Physics, Chemistry, Python, English";
     _examsController.text =
-        "Maths - Sep 25, Physics - Sep 27, Chemistry - Sep 29, Python - Oct 2, English - Oct 4";
+        "Maths - Nov 25, Physics - Nov 27, Chemistry - Nov 29, Python - Oct 2, English - Oct 4";
         
     super.initState();
   }
@@ -91,9 +92,9 @@ class _StudyPlannerScreenState extends State<StudyPlannerScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildTextField(_subjectsController, "Subjects (comma separated)"),
+            _buildTextField(_subjectsController, "Subjects (comma Novarated)"),
             SizedBox(height: 10),
-            _buildTextField(_examsController, "Exams (e.g. Math - Sep 20)"),
+            _buildTextField(_examsController, "Exams (e.g. Math - Nov 20)"),
             SizedBox(height: 10),
             _buildTextField(_hoursController, "Hours per day", isNumber: true),
             SizedBox(height: 20),

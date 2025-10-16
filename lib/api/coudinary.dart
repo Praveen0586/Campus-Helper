@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/api/api_links.dart';
+import 'package:hackathon_project/datas/userdatas/constants.dart';
 import 'package:hackathon_project/screens/DashBoardScreen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +31,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   int depYear = 2025;
 
   final List<String> departments = ["MCA"];
-  final List<String> years = ["1st Year", "2nd Year"];
+  final List<String> years = ["2024-2026", "2025-2027"];
   final List<String> interests = ["Sports", "Music", "Gaming"];
 
   bool agree = false;
@@ -82,11 +85,125 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     }
   }
 
-  // ---------- REGISTER ----------
+  // // ---------- REGISTER ----------
+  // Future<void> _register() async {
+  //   if (!_formKey.currentState!.validate() || !agree) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text("Please complete the form properly")),
+  //     );
+  //     return;
+  //   }
+
+  //   if (uploadedImageUrl.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text("Please upload a profile picture")),
+  //     );
+  //     return;
+  //   }
+
+  //   setState(() => loading = true);
+
+  //   // Map<String, dynamic> body = {
+  //   //   "name": nameCtrl.text.trim(),
+  //   //   "img": uploadedImageUrl,
+  //   //   "studentId": studentIdCtrl.text.trim(),
+  //   //   "gender": gender,
+  //   //   "dep": selectedDepartment ,
+  //   //   "Year": 2025,
+  //   //   "interests": interests,
+  //   //   "email": emailCtrl.text.trim(),
+  //   //   "password": passwordCtrl.text.trim(),
+  //   // };
+  //   Map<String, dynamic> body = {
+  //     "name": nameCtrl.text.trim(),
+  //     "studentId": studentIdCtrl.text.trim(),
+  //     "img": uploadedImageUrl,
+  //     "gender": gender,
+  //     "dep": "MCA",
+  //     "year": selectedYear,
+  //     "interests": interests,
+  //     "email": emailCtrl.text.trim(),
+  //     "password": passwordCtrl.text.trim()
+  //   };
+
+  //   // uName.value = nameCtrl.text;
+  //   // uemail.value = emailCtrl.text;
+  //   // uimage.value = uploadedImageUrl;
+  //   // uclass.value = "MCA";
+  //   // uregnum.value = studentIdCtrl.text;
+  //   // ucollegeid.value = studentIdCtrl.text;
+  //   // uintrest.value = interests;
+  //   // upassword.value = passwordCtrl.text;
+  //   // uyear.value = selectedYear ?? "";
+  //   // udepartment.value = selectedDepartment ?? "";
+  //   uName.value = nameCtrl.text;
+  //   uemail.value = emailCtrl.text;
+  //   uimage.value = uploadedImageUrl;
+  //   uclass.value = "MCA";
+  //   uregnum.value = studentIdCtrl.text;
+  //   ucollegeid.value = studentIdCtrl.text;
+  //   uintrest.value = interests;
+  //   upassword.value = passwordCtrl.text;
+  //   uyear.value = selectedYear ?? "";
+  //   udepartment.value = selectedDepartment ?? "";
+  //   print(uName.value);
+  //   print(uemail.value);
+  //   print(uimage.value);
+  //   print(uclass.value);
+  //   print(uregnum.value);
+  //   print(ucollegeid.value);
+  //   print(uintrest.value);
+  //   print(upassword.value);
+  //   print(uyear.value);
+  //   print(udepartment.value);
+
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(APIinks.adduser),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: json.encode(body),
+  //     );
+
+  //     setState(() => loading = false);
+
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       final result = json.decode(response.body);
+
+  //       // ✅ Save locally
+  //       final prefs = await SharedPreferences.getInstance();
+  //       await prefs.setString("user", json.encode(result));
+
+  //       if (context.mounted) {
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(builder: (_) => const HomeDashboard()),
+  //         );
+  //       }
+  //     } else {
+  //       print("❌ Error: ${response.statusCode}, ${response.body}");
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Error: ${response.body}")),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     setState(() => loading = false);
+  //     print("❌ Exception: $e");
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text("Something went wrong")),
+  //     );
+  //   }
+  // }
   Future<void> _register() async {
     if (!_formKey.currentState!.validate() || !agree) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please complete the form properly")),
+      );
+      return;
+    }
+
+    if (selectedDepartment == null || selectedYear == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please select department and year")),
       );
       return;
     }
@@ -100,62 +217,94 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
     setState(() => loading = true);
 
-    // Map<String, dynamic> body = {
-    //   "name": nameCtrl.text.trim(),
-    //   "img": uploadedImageUrl,
-    //   "studentId": studentIdCtrl.text.trim(),
-    //   "gender": gender,
-    //   "dep": selectedDepartment ,
-    //   "Year": 2025,
-    //   "interests": interests,
-    //   "email": emailCtrl.text.trim(),
-    //   "password": passwordCtrl.text.trim(),
-    // };
     Map<String, dynamic> body = {
       "name": nameCtrl.text.trim(),
-      "studentId": studentIdCtrl.text.trim(),
       "img": uploadedImageUrl,
+      "studentId": studentIdCtrl.text.trim(),
       "gender": gender,
-      "dep": "MCA",
-      "year": 2025,
+      "dep": selectedDepartment!,
+      "year": selectedYear!,
       "interests": interests,
       "email": emailCtrl.text.trim(),
-      "password": passwordCtrl.text.trim()
+      "password": passwordCtrl.text.trim(),
     };
+
+    print("📤 Request Body: ${json.encode(body)}");
+
     try {
       final response = await http.post(
-        Uri.parse("https://hackathon-server-18ab.onrender.com/users/add"),
+        Uri.parse(APIinks.adduser),
         headers: {"Content-Type": "application/json"},
         body: json.encode(body),
       );
 
+      print("📥 Status Code: ${response.statusCode}");
+      print("📥 Response: ${response.body}");
+
       setState(() => loading = false);
+
+      // ... [API POST logic remains unchanged above]
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = json.decode(response.body);
 
-        // ✅ Save locally
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString("user", json.encode(result));
+        // ✅ Extract user from response
+        final userData = result['user'] ?? result; // Handle both formats
 
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString("user", json.encode(userData));
+
+        // Update global variables
+        uName.value = userData['name'];
+        uemail.value = userData['email'];
+        uimage.value = userData['img'];
+        uclass.value = userData['dep'];
+        uregnum.value = userData['studentId'];
+        ucollegeid.value = userData['studentId'];
+        uintrest.value = userData['interests'];
+        upassword.value = userData['password'];
+        uyear.value = userData['year'];
+        udepartment.value = userData['dep'];
+
+        // 💡 (NEW) Firebase Firestore storage:
+        String userId = userData['studentId']; // or Firebase UID if available
+        try {
+          // 1. Main profile
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .set(userData);
+          // 2. Batch/department membership
+          await FirebaseFirestore.instance
+              .collection(userData['year'])
+              .doc(userData['dep'])
+              .collection('students')
+              .doc(userId)
+              .set(userData);
+          print('✅ User stored in Firestore');
+        } catch (e) {
+          print('❌ Failed to store user in Firestore: $e');
+        }
+
+        // UI feedback and navigation
         if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("✅ Account created successfully!")),
+          );
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (_) => const HomeDashboard()),
           );
         }
-      } else {
-        print("❌ Error: ${response.statusCode}, ${response.body}");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: ${response.body}")),
-        );
       }
     } catch (e) {
       setState(() => loading = false);
       print("❌ Exception: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Something went wrong")),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${e.toString()}")),
+        );
+      }
     }
   }
 
@@ -201,9 +350,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
               // College ID
               TextFormField(
+                readOnly: false,
                 controller: studentIdCtrl,
                 decoration: const InputDecoration(
-                  labelText: "College ID",
+                  labelText: "Student ID",
                   border: OutlineInputBorder(),
                 ),
                 validator: (val) =>

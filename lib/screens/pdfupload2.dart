@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/api/api_links.dart';
 import 'package:hackathon_project/screens/raisequestionscreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
@@ -32,7 +33,7 @@ class _PDFUploadState extends State<PDFUpload> {
       setState(() => loading = true);
 
       var uri = Uri.parse(
-          "https://hackathon-server-18ab.onrender.com/chatbot/flashcards");
+          APIinks.AI_FlashCards);
       var request = http.MultipartRequest("POST", uri);
 
       request.files.add(

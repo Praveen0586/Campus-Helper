@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hackathon_project/screens/communicationscreen.dart';
-import 'package:hackathon_project/screens/eventscreen.dart';
-import 'package:hackathon_project/screens/lostandfoundscree.dart';
+// import 'package:get/get.dart';
+import 'package:hackathon_project/datas/userdatas/constants.dart';
+import 'package:hackathon_project/screens/communication/from/Anouncements.dart';
+// import 'package:hackathon_project/screens/communicationscreen.dart';
+// import 'package:hackathon_project/screens/Events/eventscreen.dart';
+import 'package:hackathon_project/screens/LostANdFound/lostandfoundscree.dart';
+import 'package:hackathon_project/screens/Events/eventscreen.dart';
 import 'package:hackathon_project/screens/notesscreen.dart';
 import 'package:hackathon_project/screens/pdfupload.dart';
 import 'package:hackathon_project/screens/pdfupload2.dart';
 import 'package:hackathon_project/screens/profilescreen.dart';
-import 'package:hackathon_project/screens/raisequestionscreen.dart';
+// import 'package:hackathon_project/screens/raisequestionscreen.dart';
 import 'package:hackathon_project/screens/reportscreen.dart';
 import 'package:hackathon_project/screens/shedules.dart';
-import 'package:hackathon_project/screens/studyplanner.dart';
+import 'package:hackathon_project/screens/StudyPlanner/studyplanner.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});
@@ -21,10 +24,14 @@ class HomeDashboard extends StatefulWidget {
 
 class _HomeDashboardState extends State<HomeDashboard> {
   int _currentIndex = 0;
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   final List<Widget> _pages = [
     Homescreen(), // ✅ Make sure spelling matches your class
-    EventsPage(),
+    AnnouncementsPage(),
     ProfilePage(),
     // SchedulePage(),    // ✅ Separate widget instead of Center()
   ];
@@ -118,20 +125,20 @@ class Homescreen extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 22,
                     backgroundImage: NetworkImage(
-                      "https://learningbucket250825.s3.ap-southeast-2.amazonaws.com/IMG_20240125_000057%5B1%5D.jpg",
+                      uimage.value,
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Welcome back,",
                       style: TextStyle(color: Colors.grey),
                     ),
                     Text(
-                      "John Doe",
+                      uName.value,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -182,7 +189,7 @@ class Homescreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const CommunicationScreen()),
+                          builder: (_) => const CommunicationScreen2()),
                     );
                   }),
                   buildActionCard(Icons.search, "Lost & Found", Colors.amber,
@@ -206,14 +213,14 @@ class Homescreen extends StatelessWidget {
                       Icons.school_outlined, "My Classes", Colors.indigo, () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const SchedulePage()),
+                      MaterialPageRoute(builder: (_) => const OrderSchedulePage()),
                     );
                   }),
                   buildActionCard(Icons.event_outlined, "Events", Colors.purple,
                       () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const EventsPage()),
+                      MaterialPageRoute(builder: (_) => const AnnouncementsPage()),
                     );
                   }),
                   // buildActionCard(Icons.schedule_outlined, "Schesules",
@@ -246,3 +253,6 @@ class Homescreen extends StatelessWidget {
     );
   }
 }
+
+
+

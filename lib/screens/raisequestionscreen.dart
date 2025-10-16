@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/api/api_links.dart';
 import 'package:hackathon_project/global/global.dart';
 import 'package:hackathon_project/screens/answer.dart';
 import 'package:http/http.dart' as http;
@@ -29,8 +30,7 @@ class _AICardScreenState extends State<AICardScreen> {
 
       File textbookFile = File(globals.result_stored!.files.single.path!);
 
-      var uri =
-          Uri.parse("https://hackathon-server-18ab.onrender.com/chatbot/ask");
+      var uri = Uri.parse(APIinks.Ai_ask);
       var request = http.MultipartRequest("POST", uri);
 
       request.fields["question"] =
@@ -85,7 +85,7 @@ class _AICardScreenState extends State<AICardScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: Icon(Icons.arrow_back),
+        // leading: Icon(Icons.arrow_back),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
@@ -204,7 +204,12 @@ class FlashcardsDisplayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flashcards"),
+        iconTheme: IconThemeData(color: Colors.white), // Change color here
+
+        title: Text(
+          "Flashcards",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:hackathon_project/datas/userdatas/constants.dart';
+import 'package:hackathon_project/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -22,27 +24,27 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Profile Image
-            const CircleAvatar(
+            CircleAvatar(
               radius: 50,
               backgroundImage: NetworkImage(
-                "https://learningbucket250825.s3.ap-southeast-2.amazonaws.com/IMG_20240125_000057%5B1%5D.jpg",
+                uimage.value,
               ),
             ),
             const SizedBox(height: 12),
 
             // Name & Details
-            const Text(
-              "Akilesh A K",
+            Text(
+              uName.value,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(
-              "Reg. No: 2021CS001",
+              "Reg. No: ${uregnum.value}",
               style: TextStyle(color: Colors.grey[600]),
             ),
             const SizedBox(height: 2),
             Text(
-              "Computer Science | Year 3",
+              "${udepartment.value} | ${uyear.value}",
               style: TextStyle(color: Colors.grey[600]),
             ),
             const SizedBox(height: 20),
@@ -113,7 +115,47 @@ class ProfilePage extends StatelessWidget {
               ),
               trailing: const Icon(Icons.arrow_forward_ios,
                   size: 16, color: Colors.red),
-              onTap: () {},
+              onTap: () async {
+                try {
+                  // 1️⃣ Clear SharedPreferences
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.remove("user"); // Remove specific key
+                  // OR
+                  // await prefs.clear();  // Clear everything
+
+                  // 2️⃣ Clear global variables (from your constants.dart)
+                  uName.value = '';
+                  uemail.value = '';
+                  uimage.value = '';
+                  uclass.value = '';
+                  uregnum.value = '';
+                  ucollegeid.value = '';
+                  uintrest.value = [];
+                  upassword.value = '';
+                  uyear.value = '';
+                  udepartment.value = '';
+
+                  // 3️⃣ Navigate to login screen (remove all previous routes)
+                  if (context.mounted) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              const LoginScreen()), // Your login screen
+                      (route) => false, // Remove all previous routes
+                    );
+                  }
+
+                  print("✅ Logout successful");
+                } catch (e) {
+                  print("❌ Logout error: $e");
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Logout failed")),
+                    );
+                  }
+                }
+              },
             ),
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/screens/communication/chatscreen.dart';
+import 'package:hackathon_project/screens/communication/from/Anouncements.dart';
 
 class CommunicationScreen extends StatefulWidget {
   const CommunicationScreen({super.key});
@@ -40,7 +42,11 @@ class _CommunicationScreenState extends State<CommunicationScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(floatingActionButton: FloatingActionButton(onPressed: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return CommunicationScreen2();
+      },));
+    },),
       appBar: AppBar(
         title: const Text("Communication"),
         centerTitle: true,
@@ -90,6 +96,15 @@ class _CommunicationScreenState extends State<CommunicationScreen>
                   subtitle: Text(channel["subtitle"] ?? ""),
                   trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                   onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ChatScreen(
+                            channelId: channel["title"]!); // Pass channel ID
+                      },
+                    ));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Opening ${channel['title']}...")),
+                    );
                     // TODO: Navigate to channel chat screen
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("Opening ${channel['title']}...")),

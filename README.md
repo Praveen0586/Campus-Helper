@@ -76,7 +76,7 @@ Now being developed into a full-fledged product for St. Hindu College of Educati
 
 **Praveen Suresh**  
 Freelance Flutter Developer | Node.js Enthusiast  
-[GitHub](https://github.com/your-username) | [LinkedIn]([https://linkedin.com/in/your-link](https://www.linkedin.com/in/praveen-flutterdeveloper/))
+[GitHub](https://github.com/Praveen0586/) | [LinkedIn](https://www.linkedin.com/in/praveen-flutterdeveloper/)
 
 ---
 

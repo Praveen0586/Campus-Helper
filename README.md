@@ -1,60 +1,85 @@
 # 🎓 Campus Connect – Student Utility App
 
-Campus Connect is a student-focused mobile application designed to simplify college life.  
-Built using **Flutter** for the frontend and **Node.js + Express** for the backend, it connects students, teachers, and campus services in one place.
-
----
-
-## 🏆 About the Project
-
-This project was developed for **EduSprint 2025**, where our team **MCA Empereans** from *St. Hindu College of Education* won **First Prize** 🏅.  
-It’s now being scaled into a full-fledged product for real campus use.
+Campus Connect is a student-focused mobile application built using **Flutter** (frontend) and **Node.js + Express** (backend).  
+The app aims to simplify campus life by providing all essential tools in one platform.
 
 ---
 
 ## 🚀 Features
 
-- 📚 **Notes & Syllabus** – Quick access to academic materials  
-- 💬 **Communication** – Seamless connection between students and teachers  
-- 🔎 **Lost & Found** – Helps students recover lost items easily  
-- ⚠️ **Report Issue** – Quick issue reporting to management  
-- 🎓 **My Classes & Events** – Track classes and upcoming events  
-- 🤖 **AI-Ask** – Gemini API-powered Q&A assistant  
-- 📑 **AI-Flash** – Generates flashcards from PDFs for quick revision  
-- 📅 **AI Study Planner** – Personalized study schedule using AI  
+- 📚 **Notes & Syllabus** – Easy access to study materials  
+- 💬 **Communication** – Connects students and teachers  
+- 🔎 **Lost & Found** – Helps students recover lost items  
+- ⚠ **Report Issue** – Quick campus issue reporting  
+- 🎓 **My Classes & Events** – View schedules and upcoming events  
+- 🤖 **AI-Ask** – Gemini-powered Q&A assistant  
+- 🧠 **AI-Flash** – Auto-generated flashcards from PDFs  
+- 📅 **AI Study Planner** – Personalized study planner  
 
 ---
 
-## 🧠 Tech Stack
+## 🧩 Tech Stack
 
 **Frontend:** Flutter  
-**State Management:** GetX  
 **Backend:** Node.js + Express  
 **Database:** MongoDB  
 **Cloud Storage:** AWS S3  
-**Hosting:** Render  
 **AI Integration:** Gemini API  
+**Hosting:** Render.com  
 
 ---
 
-## 🖼️ Screenshots
+## 🛠️ Setup Instructions
 
-_Add your app screenshots below (place them in a `/screenshots` folder)_
-
-| Home Screen | AI Ask | Flashcards | Study Planner |
-|--------------|---------|-------------|----------------|
-| ![Home](screenshots/home.png) | ![AI Ask](screenshots/ai_ask.png) | ![Flashcards](screenshots/flash.png) | ![Planner](screenshots/planner.png) |
-
----
-
-## ⚙️ Installation & Setup
-
-### Prerequisites
-- Flutter SDK installed  
-- Node.js and npm installed  
-- MongoDB and AWS credentials set up  
-
-### Steps
-1. Clone the repo  
+1. Clone the repository  
    ```bash
    git clone https://github.com/your-username/campus-connect.git
+   cd campus-connect
+   ```
+
+2. Install dependencies  
+   ```bash
+   npm install
+   flutter pub get
+   ```
+
+3. Create a `.env` file in the backend directory and add:
+   ```
+   MONGO_URI=your_mongodb_uri
+   AWS_ACCESS_KEY=your_aws_access_key
+   AWS_SECRET_KEY=your_aws_secret_key
+   GEMINI_API_KEY=your_gemini_api_key
+   ```
+
+4. Start backend  
+   ```bash
+   npm start
+   ```
+
+5. Run Flutter app  
+   ```bash
+   flutter run
+   ```
+
+---
+
+
+## 🏆 Achievements
+
+🏅 **First Prize Winner – EduSprint 2025**  
+Developed and presented at the first inter-college hackathon in Kanyakumari.  
+Now being developed into a full-fledged product for St. Hindu College of Education.
+
+---
+
+## 👨‍💻 Developer
+
+**Praveen Suresh**  
+Freelance Flutter Developer | Node.js Enthusiast  
+[GitHub](https://github.com/your-username) | [LinkedIn]([https://linkedin.com/in/your-link](https://www.linkedin.com/in/praveen-flutterdeveloper/))
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
